@@ -1,32 +1,39 @@
-import { MailLayout } from '@/components/mail/mail';
-import { authProxy } from '@/lib/auth-proxy';
-import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
+import { MailLayout } from "@/components/mail/mail";
+import { authProxy } from "@/lib/auth-proxy";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { T } from "gt-next";
 
 interface MailPageProps {
-  params: Promise<{
-    folder: string;
-  }>;
-  searchParams: Promise<{
-    threadId: string;
-  }>;
+	params: Promise<{
+		folder: string;
+	}>;
+	searchParams: Promise<{
+		threadId: string;
+	}>;
 }
 
-const ALLOWED_FOLDERS = ['inbox', 'draft', 'sent', 'spam', 'bin', 'archive'];
+const ALLOWED_FOLDERS = ["inbox", "draft", "sent", "spam", "bin", "archive"];
 
 export default async function MailPage({ params }: MailPageProps) {
-  const headersList = new Headers(Object.fromEntries(await (await headers()).entries()));
-  const session = await authProxy.api.getSession({ headers: headersList });
+	const headersList = new Headers(
+		Object.fromEntries(await (await headers()).entries()),
+	);
+	const session = await authProxy.api.getSession({ headers: headersList });
 
-  if (!session) {
-    redirect('/login');
-  }
+	if (!session) {
+		redirect("/login");
+	}
 
-  const { folder } = await params;
+	const { folder } = await params;
 
-  if (!ALLOWED_FOLDERS.includes(folder)) {
-    return <div>Invalid folder</div>;
-  }
+	if (!ALLOWED_FOLDERS.includes(folder)) {
+		return (
+			<T id="_routes_.mail._folder_.page.0">
+				<div>Invalid folder</div>
+			</T>
+		);
+	}
 
-  return <MailLayout />;
+	return <MailLayout />;
 }
