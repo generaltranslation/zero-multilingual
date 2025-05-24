@@ -1,0 +1,13 @@
+{
+  "framework": "vite",
+  "defaultLocale": "en",
+  "files": {
+    "gt": {
+      "output": "public/locales/[locale].json"
+    }
+  },
+  "locales": [
+    "ru"
+  ],
+  "_versionId": "727e13ffb572630a5bc2fb776e1314d4550476de72437a01be123396b0c2a102"
+}

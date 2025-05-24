@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "react-router build",
+    "build": "npx gtx-cli translate && react-router build",
     "start": "wrangler dev --port 3000 --show-interactive-dev-session=false",
     "types": "wrangler types",
     "deploy": "wrangler deploy"
@@ -62,6 +62,7 @@
     "dompurify": "^3.2.5",
     "email-addresses": "5.0.0",
     "emblor": "^1.4.8",
+    "gt-react": "9.2.20",
     "idb-keyval": "^6.2.1",
     "input-otp": "1.4.2",
     "isbot": "^5.1.28",
@@ -126,6 +127,7 @@
     "eslint": "9.22.0",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "5.2.0",
+    "gtx-cli": "1.2.11",
     "postcss": "8.5.3",
     "remeda": "2.21.3",
     "tailwind-scrollbar": "3.1.0",

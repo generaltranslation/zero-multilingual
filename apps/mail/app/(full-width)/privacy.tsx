@@ -7,7 +7,9 @@ import { createSectionId } from '@/lib/utils';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import React from 'react';
-
+import { T, Var } from 'gt-react';
+import { DateTime, LocaleSelector } from 'gt-react';
+import { useGT } from 'gt-react';
 const LAST_UPDATED = 'May 16, 2025';
 
 export default function PrivacyPolicy() {
@@ -18,8 +20,13 @@ export default function PrivacyPolicy() {
     const url = `${window.location.origin}${window.location.pathname}#${sectionId}`;
     copyToClipboard(url, sectionId);
   };
+  const t = useGT();
+
+  console.log(t('test string'));
 
   return (
+    <T id="full_width_privacy.page.0">
+      <LocaleSelector />
     <div className="relative flex min-h-screen w-full flex-col overflow-auto bg-white dark:bg-[#111111]">
       <div className="relative z-10 flex flex-grow flex-col">
         <div className="absolute left-4 top-4 md:left-8 md:top-8">
@@ -44,28 +51,28 @@ export default function PrivacyPolicy() {
                 </CardTitle>
                 <div className="flex items-center justify-center gap-2">
                   <p className="text-sm text-gray-500 dark:text-white/60">
-                    Last updated: {LAST_UPDATED}
+                    Last updated: <DateTime>{LAST_UPDATED}</DateTime>
                   </p>
                 </div>
               </div>
             </CardHeader>
 
             <div className="space-y-8 p-8">
+              <Var>
               {sections.map((section) => {
-                const sectionId = createSectionId(section.title);
                 return (
-                  <div key={section.title} id={sectionId} className="p-6">
+                  <div key={section.id} id={section.id} className="p-6">
                     <div className="mb-4 flex items-center justify-between">
                       <h2 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                         {section.title}
                       </h2>
                       <button
-                        onClick={() => handleCopyLink(sectionId)}
+                        onClick={() => handleCopyLink(section.id)}
                         className="text-gray-400 transition-all hover:text-gray-700 dark:text-white/60 dark:hover:text-white/80"
                         aria-label={`Copy link to ${section.title} section`}
                       >
                         <Link2
-                          className={`h-4 w-4 ${copiedSection === sectionId ? 'text-green-500 dark:text-green-400' : ''}`}
+                          className={`h-4 w-4 ${copiedSection === section.id ? 'text-green-500 dark:text-green-400' : ''}`}
                         />
                       </button>
                     </div>
@@ -75,7 +82,7 @@ export default function PrivacyPolicy() {
                   </div>
                 );
               })}
-
+              </Var>
               <div className="mt-12 flex flex-wrap items-center justify-center gap-4"></div>
             </div>
           </Card>
@@ -84,13 +91,16 @@ export default function PrivacyPolicy() {
         <Footer />
       </div>
     </div>
+    </T>
   );
 }
 
 const sections = [
   {
-    title: 'Our Commitment to Privacy',
+    id: 'full_width_privacy.section.0',
+    title: (<T id="full_width_privacy.section.0">Our Commitment to Privacy</T>),
     content: (
+      <T id="full_width_privacy.section.0.content">
       <div className="space-y-4">
         <p>
           At Zero, we believe that privacy is a fundamental right. Our open-source email solution is
@@ -112,11 +122,14 @@ const sections = [
           <li>User Control: You can revoke our access to your Gmail at any time</li>
         </ul>
       </div>
+      </T>
     ),
   },
   {
-    title: 'Google Account Integration',
+    id: 'full_width_privacy.section.1',
+    title: (<T id="full_width_privacy.section.1">Google Account Integration</T>),
     content: (
+      <T id="full_width_privacy.section.1.content">
       <>
         <p className="mb-4">When you use Zero with your Google Account:</p>
         <ul className="ml-4 list-disc space-y-2">
@@ -130,11 +143,14 @@ const sections = [
           </li>
         </ul>
       </>
+      </T>
     ),
   },
   {
-    title: 'Data Collection and Usage',
+    id: 'full_width_privacy.section.2',
+    title: (<T id="full_width_privacy.section.2">Data Collection and Usage</T>),
     content: (
+      <T id="full_width_privacy.section.2.content">
       <div className="space-y-6">
         <div>
           <h3 className="mb-3 text-lg font-medium">Google Services Data Handling</h3>
@@ -169,11 +185,14 @@ const sections = [
           </ul>
         </div>
       </div>
+      </T>
     ),
   },
   {
-    title: 'Data Protection and Security',
+    id: 'full_width_privacy.section.3',
+    title: (<T id="full_width_privacy.section.3">Data Protection and Security</T>),
     content: (
+      <T id="full_width_privacy.section.3.content">
       <div className="space-y-6">
         <div>
           <h3 className="mb-3 text-lg font-medium">Security Measures</h3>
@@ -207,11 +226,14 @@ const sections = [
           </ul>
         </div>
       </div>
+      </T>
     ),
   },
   {
-    title: 'Google User Data Handling',
+    id: 'full_width_privacy.section.4',
+    title: (<T id="full_width_privacy.section.4">Google User Data Handling</T>),
     content: (
+      <T id="full_width_privacy.section.4.content">
       <div className="space-y-6">
         <div>
           <h3 className="mb-3 text-lg font-medium">Data Access and Usage</h3>
@@ -270,11 +292,14 @@ const sections = [
           </ul>
         </div>
       </div>
+      </T>
     ),
   },
   {
-    title: 'Limited Use Disclosure',
+    id: 'full_width_privacy.section.5',
+    title: (<T id="full_width_privacy.section.5">Limited Use Disclosure</T>),
     content: (
+      <T id="full_width_privacy.section.5.content">
       <div>
         Our use and transfer to any other app of information received from Google APIs will adhere
         to the{' '}
@@ -296,22 +321,28 @@ const sections = [
         </a>
         , including the Limited Use requirements.
       </div>
+      </T>
     ),
   },
   {
-    title: 'Your Rights and Controls',
+    id: 'full_width_privacy.section.6',
+    title: (<T id="full_width_privacy.section.6">Your Rights and Controls</T>),
     content: (
+      <T id="full_width_privacy.section.6.content">
       <ul className="ml-4 list-disc space-y-2">
         <li>Right to revoke access to your Google account at any time</li>
         <li>Right to request deletion of any cached data</li>
         <li>Right to export your data</li>
         <li>Right to lodge complaints about data handling</li>
       </ul>
+      </T>
     ),
   },
   {
-    title: 'Contact',
+    id: 'full_width_privacy.section.7',
+    title: (<T id="full_width_privacy.section.7">Contact</T>),
     content: (
+      <T id="full_width_privacy.section.7.content">
       <div className="space-y-3">
         <p>For privacy-related questions or concerns:</p>
         <div className="flex flex-col space-y-2">
@@ -331,15 +362,19 @@ const sections = [
           </a>
         </div>
       </div>
+      </T>
     ),
   },
   {
-    title: 'Updates to This Policy',
+    id: 'full_width_privacy.section.8',
+    title: (<T id="full_width_privacy.section.8">Updates to This Policy</T>),
     content: (
+      <T id="full_width_privacy.section.8.content">
       <p>
         We may update this privacy policy from time to time. We will notify users of any material
         changes through our application or website.
       </p>
+      </T>  
     ),
   },
 ];
